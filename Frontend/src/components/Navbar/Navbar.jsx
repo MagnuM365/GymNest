@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Dumbbell, Menu, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
@@ -15,12 +15,30 @@ const Navbar = () => {
 
   const navItems = [
     { name: "Home", id: "home" },
+    { name: "Profile", id: "profile" },
+
+    // { name: "Home", id: "home" },
+
+
     { name: "About", id: "about" },
     { name: "Services", id: "services" },
     { name: "Plan", id: "plan" },
     { name: "Products", id: "products" }, 
     { name: "Contact", id: "contact" },
   ];
+
+  const isLoggedIn = localStorage.getItem('token');
+  const navigate = useNavigate();
+
+  const goToLoginPage = () => {
+    navigate('/login');
+  };
+
+  const goToProfilePage = () => {
+    navigate('/profile');
+  };
+
+  const handleLogout = () => { localStorage.removeItem('token'); navigate('/') }
 
   return (
     <nav className="w-full h-auto bg-[#1d1d1d] shadow-none lg:px-24 md:px-16 sm:px-6 px-4 py-3">
@@ -57,7 +75,15 @@ const Navbar = () => {
                 </button>
               </li>
             ))}
-            <button className="bg-indigo-600 text-white px-4 py-2 rounded-md">Become A Member</button>
+             {isLoggedIn ? (
+              <>
+                <button onClick={goToProfilePage} className="bg-indigo-600 text-white px-4 py-2 rounded-md">Profile</button>
+                <button onClick={handleLogout} className="bg-indigo-600 text-white px-4 py-2 rounded-md">Logout</button>
+              </>
+
+            ) : (
+              <button onClick={goToLoginPage} className="bg-indigo-600 text-white px-4 py-2 rounded-md">Login</button>
+            )}
           </ul>
         </div>
       </div>

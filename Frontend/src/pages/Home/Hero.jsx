@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import PrimaryBtn from '../../components/Button/PrimaryBtn';
 import { DataInfo } from './DataInfo';
@@ -38,6 +39,13 @@ const Hero = () => {
       ];
 
   return (
+    <HeroComponent swiperData={swiperData} />
+  );
+}
+
+const HeroComponent = ({ swiperData }) => {
+  const navigate = useNavigate();
+  return (
     <>
         <div className='w-full h-auto'>
             <Swiper 
@@ -75,7 +83,14 @@ const Hero = () => {
                             <p className='lg:text-lg md:text-base sm:text-base text-base font-medium text-gray-500 mb-6 text-center'>
                                 {data.desc}
                             </p>
-                            <PrimaryBtn className="lg:w-[15%] md:w-[35%] sm:w-[75%] w-[80%] h-14 mt-5 text-xl font-semibold rounded-full">Get started</PrimaryBtn>
+                            <PrimaryBtn 
+                              className="lg:w-[15%] md:w-[35%] sm:w-[75%] w-[80%] h-14 mt-5 text-xl font-semibold rounded-full"
+                              onClick={() => {
+                                navigate('/login', { state: { showRegister: true } });
+                              }}
+                            >
+                              Get started
+                            </PrimaryBtn>
                         </div>
                     </SwiperSlide>
                 ))}      
