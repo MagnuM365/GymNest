@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {  } from 'react-router-dom';
 import Input from '../Form/Input';
 import PrimaryBtn from '../Button/PrimaryBtn';
 
@@ -9,7 +9,6 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
   const handleToggle = () => {
     setIsLogin(!isLogin);
@@ -38,7 +37,7 @@ function Login() {
         if (response.ok) {
           console.log('Login successful:', data);
           localStorage.setItem('token', data.token); // Store the token
-          navigate('/');
+
         } else {
           setError(data.error || 'Login failed');
           console.error('Login failed:', data);
